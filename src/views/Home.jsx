@@ -22,11 +22,11 @@ const Home = ({ filtered, showModal, id, editProject }) => {
 
   const indexOfLastProject = currentPage * projectsPerPage;
   const indexOfFirstProject = indexOfLastProject - projectsPerPage;
-  const filterProjects = filtered.slice(
+  const filterProjects = filtered?.slice(
     indexOfFirstProject,
     indexOfLastProject
   );
-
+    
   return (
     <Wrapper showModal={showModal}>
       <Header />
@@ -47,7 +47,7 @@ const Home = ({ filtered, showModal, id, editProject }) => {
       ) : (
         <ProjectTable projects={filterProjects} />
       )}
-      {filtered.length > 0 && location.pathname === "/" && (
+      {filtered?.length > 0 && location.pathname === "/" && (
         <Pagination
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}

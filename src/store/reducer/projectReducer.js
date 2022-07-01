@@ -9,7 +9,7 @@ import {
 
 const initialState = {
   newProject: [],
-  editProject: {},
+  editProject: [],
   filtered: [],
   id: "",
 };
@@ -19,7 +19,7 @@ export default function projectReducer(state = initialState, action) {
     case ADD_PROJECT:
       return {
         ...state,
-        newProject: [...state.newProject, action.payload],
+        newProject: [...state.filtered, action.payload],
         filtered: [...state.filtered, action.payload],
       };
     case DELETE_PROJECT:
@@ -41,7 +41,7 @@ export default function projectReducer(state = initialState, action) {
         filtered: state.filtered.filter(
           (project) => project.id !== action.payload
         ),
-        editProject: state.newProject.filter(
+        editProject: state.filtered.filter(
           (project) => project.id === action.payload
         ),
       };
@@ -50,12 +50,12 @@ export default function projectReducer(state = initialState, action) {
         ...state,
         filtered:
           action.payload !== ""
-            ? state.filtered.filter((data) =>
+            ? state.newProject.filter((data) =>
                 data.projectName
                   .toLowerCase()
                   .startsWith(action.payload.toLowerCase())
               )
-            : state.newProject,
+            : state.filtered,
       };
     default:
       return state;
